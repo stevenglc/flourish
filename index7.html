@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8' />
+    <title>flourish | Plant Your Idea</title>
+    <link rel="icon" href="https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/Emojione_1F331.svg/240px-Emojione_1F331.svg.png">
+    <link rel="stylesheet" type="text/css" href="index.css">
+    <script src='http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js'></script>
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.47.0/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.47.0/mapbox-gl.css' rel='stylesheet' />
+    <script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.3.0/mapbox-gl-geocoder.min.js'></script>
+    <link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.3.0/mapbox-gl-geocoder.css'
+        type='text/css' />
+    <link href='https://fonts.googleapis.com/css?family=Amaranth' rel='stylesheet'>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+</head>
+
+<body>
+    <!--Banner, includes homepage link, facebook, twitter, about us-->
+    <div class="pages">
+        <h1>
+            <a href="index7.html">
+                <img id="blossomlogo" src="lib/images/logo white 2.png">
+        </h1>
+        <h1>
+            <a href="index7.html">
+                <img id="blossomlogo" src="lib/images/Name.png">
+        </h1>
+        <h1 id="home">
+            <a href="http://www.sustainableseattle.org/">Sustainable
+                <br>Seattle
+                <span id="dot1"></span>
+                <span id="dot2"></span>
+                <span id="dot3"></span>
+            </a>
+        </h1>
+        <div id="overlay" onclick="off()">
+            <div id="text">
+                <div id="home2">Sustainable
+                    <br>Seattle
+                    <span id="dot4"></span>
+                    <span id="dot5"></span>
+                    <span id="dot6"></span>
+                    </a>
+                </div>
+                Welcome to Flourish, a web map for collecting community ideas for our Stormwater/Depave Program. This program works in city
+                neighborhoods to take up asphalt and replace it with permeable pavers, rain gardens, or trees to stop stormwater
+                runoff pollution into Puget Sound. We are continually searching for new ideas and projects and we need your
+                help! Please explore this map and feel free to "Plant Your Idea" and help our community
+                <img id="blossomlogo2" src="lib/images/Name(old).png">.</div>
+        </div>
+
+        <div style="padding:20px"></div>
+        <h2>
+            <a href="https://www.facebook.com/Sustainseattle/">
+                <img id="fblogo" src="https://upload.wikimedia.org/wikipedia/commons/c/c2/F_icon.svg" alt="fb"> Facebook</a>
+        </h2>
+        <h2>
+            <a href="https://twitter.com/sustainseattle?lang=en">
+                <img id="twitterlogo" src="http://www.pngall.com/wp-content/uploads/2016/07/Twitter-Download-PNG.png" alt="twitter"> Twitter</a>
+        </h2>
+        <h2>
+            <a href="http://www.sustainableseattle.org/about-us/">About Us</a>
+        </h2>
+    </div>
+    <div>
+        <h2>
+            <button id="marker" class="button" onclick="bothCalls()">Plant Your Idea</button>
+            <button id="marker2" class="button plant" onclick="createMarker(map, markOn)">Cancel</button>
+        </h2>
+        <div id="overlay2" onclick="off2()">
+            <div id="text2">
+                <div id="home3">
+                    Adding Your Idea to
+                    <img id="blossomlogo3" src="lib/images/Name(old).png">
+                </div>
+                We're always looking for new locations for the Stormwater/Depave Program here at Sustainable Seattle. Follow the instructions
+                below to add your idea to the map and it will be considered for our next community construction project.
+                If you'd like to get involved with a project in your neighborhood please check out the Get Involved section
+                of the app.
+                <ol>
+                    <li>Click, drag, or search to move the animal to the desired project idea location.</li>
+                    <li>Press the "Confirm Location" when ready.</li>
+                    <li>Fill out the information form and hit submit.</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+    <div>
+        <h2>
+            <button id="myBtn" class="button plant">Confirm Location</button>
+        </h2>
+    </div>
+    <!--<div id="mySidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a href="http://www.sustainableseattle.org/about-us/" target="_blank">About Sustainable Seattle</a>
+        <a href="http://www.sustainableseattle.org/programs/stormwaterdepave/" target="_blank">About Depave</a>
+        <a href="">About Blossom</a>
+        <a href="http://www.sustainableseattle.org/join/" target="_blank">Get Involved</a>
+        <a href="https://twitter.com/sustainseattle?lang=en" target="_blank">
+            <img id="twitterlogo" src="http://www.pngall.com/wp-content/uploads/2016/07/Twitter-Download-PNG.png" alt="twitter">            Twitter</a>
+        <a href="https://www.facebook.com/Sustainseattle/" target="_blank">
+            <img id="fblogo" src="https://upload.wikimedia.org/wikipedia/commons/c/c2/F_icon.svg" alt="fb"> Facebook</a>
+    </div>
+    <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; menu</span>
+    <script>
+        function openNav() {
+            document.getElementById("mySidenav").style.width = "250px";
+        }
+
+        function closeNav() {
+            document.getElementById("mySidenav").style.width = "0";
+        }
+    </script>-->
+    <!-- The Modal Form-->
+    <div id="myModal" class="modal">
+
+        <!-- Modal Form content -->
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="close">&times;</span>
+                <h2>Describe Your Idea</h2>
+            </div>
+            <div class="modal-body">
+                <script type="text/javascript">var submitted = false;</script>
+                <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="if(submitted) {window.location='index7.html';}"></iframe>
+                <form id="input-form" action="https://docs.google.com/forms/d/e/1FAIpQLSc6I9q6iFoa5QYsR-pMKEFvLroGPZtIgAU1JtQEz2jitiqvGg/formResponse"
+                    method="POST" target="hidden_iframe" onsubmit="submitted=true;">
+                    <div class="row">
+                        <div class="col-75">
+                            <label for="input-q1">What is the name of the property?</label>
+                            <input type="text" id="input-q1" placeholder="Property Name" name="q1" required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-75">
+                            <label for="input-q1">What are the property ownership details?</label>
+                            <select id="input-q4" name="q4" required>
+                                <option value="" disabled selected></option>
+                                <option value="Public">Public</option>
+                                <option value="Private">Private</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-75">
+                            <label for="input-q1">What is your Depave project idea? Please be as detailed as possible.</label>
+                            <textarea type="text" id="input-q8" placeholder="Project idea" style="height:200px" name="q8" required></textarea>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-75">
+                            <label for="input-q1">Contact Details (Optional)</label>
+                            <input type="text" id="input-q5" placeholder="Name" name="q5">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-75">
+                            <input type="text" id="input-q6" placeholder="Phone Number" name="q6">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-75">
+                            <input type="text" id="input-q7" placeholder="Email Address" name="q7">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-75">
+                            <input type="submit" value="Submit Your Idea">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+
+    <!--The Modal-->
+    <div id="myModal2" class="modal">
+
+        <!--Modal Content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="close2">&times;</span>
+                <h2 id="test1"></h2>
+            </div>
+            <div class="modal-body">
+                <p id="test2"></p>
+                <p id="test3"></p>
+                <p id="test4"></p>
+                <p id="test"></p>
+            </div>
+
+            <div class="modal-body">
+                <script type="text/javascript">var submitted = false;</script>
+                <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="if(submitted) {window.location='index7.html';}"></iframe>
+                <form id="input-form2" action="https://docs.google.com/forms/d/e/1FAIpQLScLLBkkVgP2oRqZeo-G7eM5Y7WOqufY03hdh0keFh8iFihTSQ/formResponse"
+                    method="POST" target="hidden_iframe" onsubmit="submitted=true;">
+                    <hr>
+                    <div class="row">
+                        <div class="col-75">
+                            <textarea type="text" id="input-comment" placeholder="Leave a comment" style="height:120px" name="comment" required></textarea>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-75">
+                            <input type="text" id="input-name" placeholder="Name (Optional)" name="name">
+                        </div>
+                    </div>
+                    <p>
+                        <input type="submit" value="Submit Comment" style="float: left;">
+                    </p>
+            </div>
+            </form>
+
+            <div class="modal-body">
+                <b>Comments</b>
+                <p id="commentDescription"></p>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="content">
+        <nav id="menu"></nav>
+        <div id='map'></div>
+
+        <script>
+
+            //Map Initialization, style
+            mapboxgl.accessToken = 'pk.eyJ1IjoiZGVwYXZlc2VhdHRsZSIsImEiOiJjamd2N3FibHEwMGFhMndvZjRpaDlqNHQwIn0.VeREBUdb4ol1YAXuwGg3BQ'; // Depave Mapbox Access token
+            var map = new mapboxgl.Map({
+                container: 'map',
+                style: 'mapbox://styles/stevenchin/cjkd9uolqdl9b2rnws3ce1l8v',  //Style URL
+                center: [-122.321381, 47.592951],
+                zoom: 11
+            });
+
+            var lng76 = 0;
+            var lat76 = 0;
+            var markOn = false;
+            var comments = [];
+            let preloadComments;
+            const urlAPI3 = 'https://script.googleusercontent.com/macros/echo?user_content_key=W94bsXwguocDuAs74fXKtiNmSESf9uLMkvNyp8D2QqaazuUWL_ekB-KG1GXKAnOrGPEMlLCSqFxSvIHIsDUfmWwbidg2tcycm5_BxDlH2jW0nuo2oDemN9CCS2h10ox_1xSncGQajx_ryfhECjZEnGsMhUz_dLmdJXEq4nzSW2euHxKoH8OVKtfk-PQNUENDml5lOS_4_sYjxkURFuix7m1hQ0MTKgo2&lib=MrBpv0zOJI_oUiwIU46IaEWvPlO1NuWcM';
+
+            map.on('load', function () {
+                //Initial Zoom In on map load
+                map.flyTo({
+                    zoom: 11.5,
+                    speed: 0.05
+                });
+
+                //AJAX request for Google Sheet data entries
+                $.ajax({
+                    url: urlAPI3,
+                    type: 'GET',
+                    dataType: 'json',
+                    success(response) {
+                        preloadComments = response.comment.reverse();
+                        console.log(preloadComments);
+                    },
+                    //AJAX error
+                    error(jqXHR, status, errorThrown) {
+                        console.log("comment preload error");
+                    }
+                });
+            });
+
+            // Get the modal
+            var modal = document.getElementById('myModal');
+
+            var modal2 = document.getElementById('myModal2');
+
+            // Get the button that opens the modal
+            var btn = document.getElementById("myBtn");
+
+            // Get the <span> element that closes the modals
+            var span = document.getElementsByClassName("close")[0];
+            var span2 = document.getElementsByClassName("close2")[0];
+
+            // When the user clicks the button, open the modal 
+            btn.onclick = function () {
+                modal.style.display = "block";
+            }
+
+            // load popup Info
+            var lName = "Default";
+
+            function loadInfo() {
+                var theDiv = document.getElementById('test');
+                theDiv.innerHTML += lName;
+            }
+
+            function clearInfo(elementID) {
+                document.getElementById(elementID).innerHTML = "";
+            }
+            // When the user clicks on <span> (x), close the modal
+            span.onclick = function () {
+                modal.style.display = "none";
+            }
+
+            span2.onclick = function () {
+                clearInfo("test");
+                clearInfo("commentDescription");
+                modal2.style.display = "none";
+            }
+
+            //When the user clicks anywhere outside of the modal, close it
+            window.onclick = function (event) {
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                }
+            }
+
+            window.onclick = function (event) {
+                if (event.target == modal2) {
+                    clearInfo("test");
+                    clearInfo("commentDescription");
+                    modal2.style.display = "none";
+                }
+            }
+
+            var geocoder = new MapboxGeocoder({
+                accessToken: mapboxgl.accessToken,
+                placeholder: "Search for a location!",
+
+                // limit results to United States
+                country: 'us',
+
+                // further limit results to the geographic bounds representing Washington State
+                bbox: [-125.578443, 46.085920, -121.120155, 48.891197],
+
+                // client side filter to further limit results to those strictly within
+                // the Washington State region
+                filter: function (item) {
+                    // returns true if item contains Washington State region
+                    return item.context.map(function (i) {
+                        // id is in the form {index}.{id} per https://github.com/mapbox/carmen/blob/master/carmen-geojson.md
+                        return (i.id.split('.').shift() === 'region' && i.text === 'Washington');
+                    }).reduce(function (acc, cur) {
+                        return acc || cur;
+                    });
+                }
+            });
+
+            // Mapbox Geocoder
+            map.addControl(geocoder);
+
+            // Add zoom and rotation controls to the map.
+            map.addControl(new mapboxgl.NavigationControl());
+
+            // Add geolocate control to the map.
+            map.addControl(new mapboxgl.GeolocateControl({
+                positionOptions: {
+                    enableHighAccuracy: true
+                },
+                trackUserLocation: true,
+                showUserLocation: true
+            }));
+
+            //GeoJSON Feature Collection to store GoogleSheet 1
+            let geojsonSheet1 = {
+                id: 'Geojson1',
+                type: 'FeatureCollection',
+                features: []
+            };
+
+            //GeoJSON Feature Collection to store Google Sheet 2
+            let geojsonSheet2 = {
+                id: 'Geojson2',
+                type: 'FeatureCollection',
+                features: []
+            };
+
+            //Map load image to source test
+            map.loadImage('https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/Emojione1_1F33F.svg/240px-Emojione1_1F33F.svg.png', function (error, image) {
+                if (error) throw error;
+                map.addImage('image1', image);
+            });
+
+            const a = 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Fxemoji_u1F331.svg/240px-Fxemoji_u1F331.svg.png';
+            const b = 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/Fxemoji_u1F337.svg/240px-Fxemoji_u1F337.svg.png';
+            //Function for requesting Google Sheet data, storing them in a GeoJSON feature collection,  
+            function drawLayer(geojsonSheet, sheetID, layerID, sourceID, icon, iconName) {
+                const urlAPI = 'https://script.googleusercontent.com/macros/echo?user_content_key=AF81sPY4qS9iPZ4VF99UJ4AnX7y--MS5trNl9G41P_EZpgpzZWngBhYC3yw29JXcKie-7Qv3d4TFEtR6GGP8Kfr5359senkom5_BxDlH2jW0nuo2oDemN9CCS2h10ox_1xSncGQajx_ryfhECjZEnJxmefODZc8WVuDmVcjSmm-a98d6t9shIDZydBrmIAiO73YodlZUPPmQVyt-e8ytj0W-dnclfdIe&lib=Mu3W69uoBuvhNMrUy8UbJtiZNcORKOCcz';
+                const urlAPI2 = 'https://script.googleusercontent.com/macros/echo?user_content_key=DON3ir_frsIZKkNo1IlzwB_a1xzY198gOupeuJ-CrSG-jcXnFx2l5mzrn86gr17QTbEOj5ecT37WHMybfz8kWLWY1ghzdPwzm5_BxDlH2jW0nuo2oDemN9CCS2h10ox_1xSncGQajx_ryfhECjZEnConvtMp3VTbFkHjo_NqrX-ABGhSXWK0lGVq_v9jbXHtOZE7Hc3y3tXI9_IzNX6QpUCAE3ggKcx5&lib=MhsMkWoZMmDbR45d82P7ftGvPlO1NuWcM';
+                const urlAPI3 = 'https://script.googleusercontent.com/macros/echo?user_content_key=W94bsXwguocDuAs74fXKtiNmSESf9uLMkvNyp8D2QqaazuUWL_ekB-KG1GXKAnOrGPEMlLCSqFxSvIHIsDUfmWwbidg2tcycm5_BxDlH2jW0nuo2oDemN9CCS2h10ox_1xSncGQajx_ryfhECjZEnGsMhUz_dLmdJXEq4nzSW2euHxKoH8OVKtfk-PQNUENDml5lOS_4_sYjxkURFuix7m1hQ0MTKgo2&lib=MrBpv0zOJI_oUiwIU46IaEWvPlO1NuWcM';
+
+                let testAPI;
+                let sheetIndicator;
+
+                let clusterColor1;
+                let clusterColor2;
+                let clusterColor3;
+
+                if (sheetID === 'sheet1') {
+                    testAPI = urlAPI;
+                    clusterColor1 = "#00ffb4";
+                    clusterColor2 = "#0dbbad";
+                    clusterColor3 = "#0e8990";
+                } else if (sheetID === 'sheet2') {
+                    testAPI = urlAPI2;
+                    clusterColor1 = "#ffa9ba";
+                    clusterColor2 = "#ff6e83";
+                    clusterColor3 = "#ef3a54";
+                }
+
+                //AJAX request for Google Sheet data entries
+                $.ajax({
+                    url: testAPI,
+                    type: 'GET',
+                    dataType: 'json',
+                    success(response) {
+                        if (sheetID === 'sheet1') {
+                            sheetIndicator = response.sheet1;
+                        } else if (sheetID === 'sheet2') {
+                            sheetIndicator = response.sheet2;
+                        }
+                        //For each loop through Google Sheet JSON feed
+                        sheetIndicator.forEach(function (element) {
+
+                            let newFeature = {
+                                type: 'Feature',
+                                geometry: {
+                                    type: 'Point',
+                                    coordinates: [element.Long, element.Lat]
+                                },
+                                properties: {
+                                    'name': element.Property_Name,
+                                    'timestamp': element.Timestamp,
+                                    'propertyowner': element.Property_Owner,
+                                    'contactname': element.Contact_Name,
+                                    'contactphone': element.Contact_Phone,
+                                    'contactemail': element.Contact_Email,
+                                    'projectidea': element.Project_Idea,
+                                    'tier': element.Tier,
+                                    'status': element.Status
+                                }
+                            }
+                            //Adds data to a GeoJSON feature collection
+                            geojsonSheet['features'].push(newFeature);
+                        });
+
+                        //Adds Google Sheet Feature collection to Mapbox Source
+                        map.addSource(sourceID, {
+                            'type': 'geojson',
+                            'data': geojsonSheet,
+                            'cluster': true,
+                            'clusterMaxZoom': 14,
+                            'clusterRadius': 20
+                        });
+
+                        map.loadImage(icon, function (error, image) {
+                            map.addImage(iconName, image);
+                            //Draws new layer using Google Sheet Feature Collection Source
+                            map.addLayer({
+                                'id': layerID,
+                                'type': 'symbol',
+                                'source': sourceID,
+                                'filter': ['!has', 'point_count'],
+                                'layout': {
+                                    'icon-image': iconName,
+                                    'icon-size': 0.12,
+                                    'icon-allow-overlap': true,
+                                    'icon-padding': 2,
+                                    'icon-anchor': 'bottom'
+                                },
+                                'paint': {
+                                    'icon-opacity': 0,
+                                    'icon-opacity-transition': {
+                                        duration: 720
+                                    }
+                                }
+                            });
+                            setTimeout(function () {
+                                map.setPaintProperty(layerID, 'icon-opacity', 1);
+                            }, 1);
+                        });
+
+                        map.addLayer({
+                            'id': layerID + "cluster",
+                            'type': "circle",
+                            'source': sourceID,
+                            'filter': ["has", "point_count"],
+                            'paint': {
+                                "circle-color": [
+                                    "step",
+                                    ["get", "point_count"],
+                                    clusterColor1,
+                                    5,
+                                    clusterColor2,
+                                    10,
+                                    clusterColor3
+                                ],
+                                "circle-radius": [
+                                    "step",
+                                    ["get", "point_count"],
+                                    20,
+                                    5,
+                                    25,
+                                    10,
+                                    30
+                                ],
+                                "circle-opacity": 0,
+                                'circle-opacity-transition': {
+                                    duration: 720
+                                }
+                            }
+                        });
+
+                        setTimeout(function () {
+                            map.setPaintProperty(layerID + "cluster", 'circle-opacity', 0.8);
+                        }, 0.8);
+
+
+                        map.addLayer({
+                            'id': layerID + "cluster-count",
+                            'type': "symbol",
+                            'source': sourceID,
+                            'filter': ["has", "point_count"],
+                            'layout': {
+                                "text-field": "{point_count_abbreviated}",
+                                "text-font": ["DIN Offc Pro Medium", "Arial Unicode MS Bold"],
+                                "text-size": 13
+                            },
+                            'paint': {
+                                "text-color": '#000000',
+                                'icon-opacity': 0,
+                                'icon-opacity-transition': {
+                                    duration: 720
+                                }
+                            }
+                        });
+
+                        setTimeout(function () {
+                            map.setPaintProperty(layerID + "cluster-count", 'icon-opacity', 0.8);
+                        }, 0.8);
+
+                        // inspect a cluster on click
+                        map.on('click', layerID + "cluster", function (e) {
+                            var features = map.queryRenderedFeatures(e.point, { layers: [layerID + "cluster"] });
+                            console.log(features);
+
+                            var clusterId = features[0].properties.cluster_id;
+
+                            var features2 = map.getSource(sourceID).getClusterChildren(clusterId, function (err, zoom) { });
+                            console.log(features2);
+
+                            map.getSource(sourceID).getClusterExpansionZoom(clusterId, function (err, zoom) {
+                                if (err)
+                                    return;
+
+                                map.easeTo({
+                                    center: features[0].geometry.coordinates,
+                                    zoom: zoom
+                                });
+                            });
+                        });
+
+                        map.on('mouseenter', layerID + "cluster", function () {
+                            map.getCanvas().style.cursor = 'pointer';
+                        });
+                        map.on('mouseleave', layerID + "cluster", function () {
+                            map.getCanvas().style.cursor = '';
+                        });
+
+
+                        console.log(geojsonSheet);
+                        let e = geojsonSheet;
+
+                        const dateHash = {
+                            1: 'January',
+                            2: 'February',
+                            3: 'March',
+                            4: 'April',
+                            5: 'May',
+                            6: 'June',
+                            7: 'July',
+                            8: 'August',
+                            9: 'September',
+                            10: 'October',
+                            11: 'November',
+                            12: 'December'
+                        }
+
+                        map.on('click', layerID, function (e) {
+                            let popupInfo = e.features[0];
+                            let coordinates = popupInfo.geometry.coordinates.slice();
+                            let locationName = popupInfo.properties.name;
+                            let projectIdea = popupInfo.properties.projectidea;
+                            let projectTime = dateHash[popupInfo.properties.timestamp.slice(6, 7)] + " " + popupInfo.properties.timestamp.slice(8, 10) + ", " + popupInfo.properties.timestamp.slice(0, 4);
+                            let projectName = popupInfo.properties.property_name;
+
+                            //const geocodeURL = 'https://api.mapbox.com/geocoding/v5/mapbox.places/' + coordinates + '.json?country=us&access_token=pk.eyJ1IjoiZGVwYXZlc2VhdHRsZSIsImEiOiJjamd2N3FibHEwMGFhMndvZjRpaDlqNHQwIn0.VeREBUdb4ol1YAXuwGg3BQ';
+
+                            //AJAX request for Google Sheet data entries
+                            /*$.ajax({
+                                url: geocodeURL,
+                                type: 'GET',
+                                dataType: 'json',
+                                success(response) {
+                                    document.getElementById("test1").innerHTML = response.features[0].properties.address;
+                                    document.getElementById("test2").innerHTML = "<b>Description</b>: <br>" + projectIdea + "<br> Category: " + response.features[0].properties.category;
+                                    document.getElementById("test3").innerHTML = "Submitted on " + projectTime;
+                                    document.getElementById("test4").innerHTML = "Located at " + response.features[0].place_name;
+                                    console.log(response.features[0]);
+                                },
+                                //AJAX error
+                                error(jqXHR, status, errorThrown) {
+                                    console.log(jqXHR);
+                                }
+                            });*/
+
+                            document.getElementById("test1").innerHTML = locationName;
+                            document.getElementById("test2").innerHTML = "<b>Description</b>: <br>" + projectIdea;
+                            document.getElementById("test3").innerHTML = "Submitted on " + projectTime;
+                            document.getElementById("test4").innerHTML = "Located at (" + coordinates[0].toString().slice(0, 10) + ", " + coordinates[1].toString().slice(0, 8) + ")";
+
+                            //Camera flies to clicked point
+                            map.easeTo({ center: popupInfo.geometry.coordinates });
+
+                            // When the user clicks the button, open the modal 
+                            modal2.style.display = "block";
+
+                            console.log(comments);
+
+                            //Loading comments from preload comment array
+                            preloadComments.forEach(function (element) {
+                                if (element.Property_Name === popupInfo.properties.name) {
+                                    var commentTime = dateHash[element.Timestamp.slice(6, 7)] + " " + element.Timestamp.slice(8, 10) + ", " + element.Timestamp.slice(0, 4);
+                                    document.getElementById("commentDescription").innerHTML += element.Name + " (" + commentTime + " at " + element.Timestamp.slice(12, 16) + ")<br><br>\"" + element.Comment + "\"<br><br><br>";
+                                }
+                            });
+
+                            //Form Submission
+                            $('#input-form2').one('submit', function () {
+                                var inputc2 = "";
+                                if (encodeURIComponent($('#input-name').val()) === "") {
+                                    inputc2 = "Anonymous";
+                                } else {
+                                    inputc2 = encodeURIComponent($('#input-name').val());
+                                }
+                                var inputc3 = encodeURIComponent($('#input-comment').val());
+
+                                var c1ID = "entry.684332924";
+                                var c2ID = "entry.366428247";
+                                var c3ID = "entry.1067614148";
+
+                                var baseURL2 = 'https://docs.google.com/forms/d/e/1FAIpQLScLLBkkVgP2oRqZeo-G7eM5Y7WOqufY03hdh0keFh8iFihTSQ/formResponse?';
+                                var submitRef2 = '&submit=8812006259339941137';
+                                var submitURL2 = (baseURL2 + c1ID + "=" + locationName + "&" + c2ID + "=" + inputc2 + "&" + c3ID + "=" + inputc3 + submitRef2);
+                                console.log(submitURL2);
+                                $(this)[0].action = submitURL2;
+                            });
+                        });
+
+                        var popup = new mapboxgl.Popup({
+                            offset: 27,
+                            closeButton: false
+                        });
+
+                        //Popup appears over clicked point, change 'mouseenter' to 'click' to change back into click popup
+                        map.on('mouseenter', layerID, function (e) {
+                            console.log(e);
+                            let popupInfo = e.features[0];
+                            let coordinates = popupInfo.geometry.coordinates.slice();
+                            let locationName = popupInfo.properties.name;
+                            let projectIdea = popupInfo.properties.projectidea;
+                            let projectTime = dateHash[popupInfo.properties.timestamp.slice(6, 7)] + " " + popupInfo.properties.timestamp.slice(8, 10) + ", " + popupInfo.properties.timestamp.slice(0, 4) + " at " + popupInfo.properties.timestamp.slice(12, 16);
+
+                            // Ensure that if the map is zoomed out such that multiple
+                            // copies of the feature are visible, the popup appears
+                            // over the copy being pointed to.
+                            while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+                                coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+                            }
+
+                            popup.setLngLat(coordinates)
+                                .setHTML('<h5>' + locationName + '</h5><h4>' + projectIdea + '</h4><p>' + "Submitted on " + projectTime + "<br>Located at (" + coordinates[0].toString().slice(0, 10) + ", " + coordinates[1].toString().slice(0, 8) + ')</p>')
+                                .addTo(map);
+                        });
+
+                        // Change the cursor to a pointer when the mouse is over the places layer.
+                        map.on('mouseenter', layerID, function () {
+                            map.getCanvas().style.cursor = 'pointer'; //change to 'pointer' for click popup
+                        });
+
+                        // Change it back to a pointer when it leaves.
+                        map.on('mouseleave', layerID, function () {
+                            map.getCanvas().style.cursor = '';
+                            popup.remove(); //remove this to turn back into click popup
+                        });
+                    },
+                    //AJAX error
+                    error(jqXHR, status, errorThrown) {
+                        console.log(jqXHR);
+                    }
+                });
+
+            }
+
+            //Draws Google Sheet 1 layer
+            drawLayer(geojsonSheet1, 'sheet1', 'Community Ideas', 'layer1', a, 'sprout');
+
+            //Draws Google Sheet 2 layer
+            drawLayer(geojsonSheet2, 'sheet2', 'Depave Projects', 'layer2', b, 'flower');
+
+            //Toggle Layers
+            var toggleableLayerIds = ['Depave Projects', 'Community Ideas'];
+
+            for (var i = 0; i < toggleableLayerIds.length; i++) {
+                var id = toggleableLayerIds[i];
+
+                var link = document.createElement('a');
+                link.href = '#';
+                link.className = 'active';
+                link.textContent = id;
+
+                link.onclick = function (e) {
+                    var clickedLayer = this.textContent;
+                    e.preventDefault();
+                    e.stopPropagation();
+
+                    console.log(clickedLayer);
+
+                    var visibility = map.getLayoutProperty(clickedLayer, 'visibility');
+
+                    if (visibility === 'visible') {
+                        map.setLayoutProperty(clickedLayer, 'visibility', 'none');
+                        map.setLayoutProperty(clickedLayer + "cluster", 'visibility', 'none');
+                        map.setLayoutProperty(clickedLayer + "cluster-count", 'visibility', 'none');
+                        this.className = '';
+                    } else {
+                        this.className = 'active';
+                        map.setLayoutProperty(clickedLayer, 'visibility', 'visible');
+                        map.setLayoutProperty(clickedLayer + "cluster", 'visibility', 'visible');
+                        map.setLayoutProperty(clickedLayer + "cluster-count", 'visibility', 'visible');
+                    }
+                };
+
+                var layers = document.getElementById('menu');
+                layers.appendChild(link);
+            }
+
+            //Form Submission
+            $('#input-form').one('submit', function () {
+                var inputq1 = encodeURIComponent($('#input-q1').val());
+                var inputq2 = encodeURIComponent($('#input-q2').val());
+                var inputq3 = encodeURIComponent($('#input-q3').val());
+                var inputq4 = encodeURIComponent($('#input-q4').val());
+
+                var inputq5 = "";
+                if (encodeURIComponent($('#input-q5').val()) === "") {
+                    inputq5 = "Anonymous";
+                } else {
+                    inputq5 = encodeURIComponent($('#input-q5').val());
+                }
+
+                var inputq6 = "";
+                if (encodeURIComponent($('#input-q6').val()) === "") {
+                    inputq6 = "N/A";
+                } else {
+                    inputq6 = encodeURIComponent($('#input-q6').val());
+                }
+
+                var inputq7 = "";
+                if (encodeURIComponent($('#input-q7').val()) === "") {
+                    inputq7 = "N/A";
+                } else {
+                    inputq7 = encodeURIComponent($('#input-q7').val());
+                }
+
+                var inputq8 = encodeURIComponent($('#input-q8').val());
+                var q1ID = "entry.145595747";
+                var q2ID = "entry.670765023";
+                var q3ID = "entry.1524156323";
+                var q4ID = "entry.1694747938";
+                var q5ID = "entry.754802796";
+                var q6ID = "entry.584424800";
+                var q7ID = "entry.1909674237";
+                var q8ID = "entry.355271249";
+                var q9ID = "entry.773169718";
+                var q10ID = "entry.1481812140";
+
+                var baseURL = 'https://docs.google.com/forms/d/e/1FAIpQLSc6I9q6iFoa5QYsR-pMKEFvLroGPZtIgAU1JtQEz2jitiqvGg/formResponse?';
+                var submitRef = '&submit=-3277413199993459190';
+                var submitURL = (baseURL + q1ID + "=" + inputq1 + "&" + q2ID + "=" + lng76 + "&" + q3ID + "=" + lat76 + "&" + q4ID + "=" + inputq4 + "&" + q5ID + "=" + inputq5 + "&" + q6ID + "=" + inputq6 + "&" + q7ID + "=" + inputq7 + "&" + q8ID + "=" + inputq8 + "&" + q9ID + "=Tier 3" + "&" + q10ID + "=Option 1" + submitRef);
+
+                console.log(lng76 + " " + lat76);
+                console.log(submitURL);
+                $(this)[0].action = submitURL;
+                $('#input-feedback').text('Thank You!');
+            });
+
+            //Marker drag end event function
+            function markerDrag(e) {
+                lng76 = marker.getLngLat().lng;
+                lat76 = marker.getLngLat().lat;
+                console.log("New Drag Coords: " + lng76 + " " + lat76);
+
+                map.easeTo({
+                    center: e.target._lngLat,
+                    pitch: 0
+                });
+            };
+
+            //Marker click event function
+            function markerClick(e) {
+                marker.setLngLat([e.lngLat.lng, e.lngLat.lat]);
+                map.easeTo({
+                    center: e.lngLat,
+                    pitch: 0
+                });
+
+                lng76 = marker.getLngLat().lng;
+                lat76 = marker.getLngLat().lat;
+                console.log("New Click Coords: " + lng76 + " " + lat76);
+            };
+
+            //Marker geocode results event listener function
+            function markerGeocode(e) {
+                marker.setLngLat([e.result.geometry.coordinates[0], e.result.geometry.coordinates[1]]);
+
+                map.easeTo({
+                    center: e.result.center,
+                    duration: 3000,
+                    pitch: 0,
+                    zoom: 14
+                });
+
+                console.log(e.result);
+
+                lng76 = e.result.geometry.coordinates[0];
+                lat76 = e.result.geometry.coordinates[1];
+                console.log("New Geocode Coords: " + lng76 + " " + lat76);
+            };
+
+            //Create moveable marker
+            var marker = new mapboxgl.Marker({
+                draggable: true,
+                color: '#FF8C61'
+            })
+
+            //Creates draggable marker map layer
+            function createMarker(map, status) {
+
+                if (status == false) {
+                    var coords = map.getCenter();
+
+                    marker.setLngLat([coords.lng, coords.lat]);
+                    marker.addTo(map);
+
+                    lng76 = marker.getLngLat().lng;
+                    lat76 = marker.getLngLat().lat;
+
+                    console.log("Initial Coords: " + lng76 + ", " + lat76);
+
+                    //Adds Event listener functions
+                    marker.on('dragend', markerDrag);
+                    map.on('click', markerClick);
+                    geocoder.on('result', markerGeocode);
+
+                    markOn = true;
+                    $('#myBtn').removeClass('plant');
+                    $('#marker2').removeClass('plant');
+                    $('#marker').addClass('plant');
+                } else {
+                    marker.remove();
+                    //Removes Event listener functions
+                    marker.off('dragend', markerDrag);
+                    map.off('click', markerClick);
+                    geocoder.off('result', markerGeocode);
+
+                    $('#myBtn').addClass('plant');
+                    $('#marker2').addClass('plant');
+                    $('#marker').removeClass('plant');
+                    markOn = false;
+                }
+            }
+
+            //Calls createMarker and on2 function together for 'marker 'button click
+            function bothCalls() {
+                createMarker(map, markOn);
+                on2();
+            }
+
+            //Turns on welcome overlay
+            function on() {
+                document.getElementById("overlay").style.display = "block";
+            }
+
+            //Turns on instruction overlay
+            function on2() {
+                document.getElementById("overlay2").style.display = "block";
+            }
+
+            //Turns off welcome overlay
+            function off() {
+                document.getElementById("overlay").style.display = "none";
+            }
+
+            //Turns off instruction overlay
+            function off2() {
+                document.getElementById("overlay2").style.display = "none";
+            }
+
+            //Welcome overlay on window load
+            window.onload = on;
+
+            //ASCII Group 13 console log
+            /*console.log(`%c
+        _                    
+    /) //           o      / 
+   // // __ , , _  ,  (   /_ 
+  //_(/_(_)(_/_/ (_(_/_)_/ /_   by
+ /)                          
+(/                           
+  ________                             ____________  
+ /  _____/______  ____  __ ________   /_   \\_____  \\
+/   \\  __\\_  __ \\/  _ \\|  |  \\____ \\   |   | _(__  < 
+\\    \\_\\  \\  | \\(  <_> )  |  /  |_> >  |   |/       \\
+ \\______  /__|   \\____/|____/|   __/   |___/______  /
+        \\/                   |__|                 \\/ 
+Members: Steven Chin, Marvin Hoang (the pixel master), Alex Wu
+`, "color: #71ecc5");*/
+        </script>
+    </div>
+</body>
+
+</html>
